@@ -26,3 +26,7 @@ variable "sec_group" {
 variable "vpc_id" {
   default = "vpc-04dee187fd5e82d8e"
 }
+
+variable "my_name" {
+  default = "Siphiwe"
+}
