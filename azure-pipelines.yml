@@ -1,0 +1,30 @@
+#Azure DevOps pipeline to deploy AWS resources via Terraform
+#Siphiwe
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'init'
+    backendServiceAWS: 'firco-aws-tf'
+    backendAWSBucketName: 'firco-tfstate-bucket'
+    backendAWSKey: 'fircotf'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'plan'
+    environmentServiceNameAWS: 'firco-aws-tf'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    environmentServiceNameAWS: 'firco-aws-tf'
+
