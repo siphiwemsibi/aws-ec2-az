@@ -11,24 +11,25 @@ steps:
 
 - task: TerraformInstaller@0
   inputs:
-    terraformVersion: '0.12.3'
+    terraformVersion: '0.13.5'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'aws'
     command: 'init'
+    commandOptions: '-var "region=$(region)"'
     backendServiceAWS: 'firco-aws-tf'
     backendAWSBucketName: 'firco-tfstate-bucket'
     backendAWSKey: 'fircotf'
 
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'aws'
-    command: 'plan'
-    environmentServiceNameAWS: 'firco-aws-tf'
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'aws'
+#     command: 'plan'
+#     environmentServiceNameAWS: 'firco-aws-tf'
 
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'aws'
-    command: 'apply'
-    environmentServiceNameAWS: 'firco-aws-tf'
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'aws'
+#     command: 'apply'
+#     environmentServiceNameAWS: 'firco-aws-tf'
 
