@@ -20,15 +20,15 @@ steps:
     backendAWSBucketName: 'firco-tfstate-bucket-us'
     backendAWSKey: 'fircotf.tfstate'
 
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'aws'
-#     command: 'plan'
-#     environmentServiceNameAWS: 'firco-aws-tf'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'plan'
+    environmentServiceNameAWS: 'firco-aws-tf'
 
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'aws'
-#     command: 'apply'
-#     environmentServiceNameAWS: 'firco-aws-tf'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    environmentServiceNameAWS: 'firco-aws-tf'
 
