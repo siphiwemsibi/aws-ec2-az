@@ -15,9 +15,9 @@ resource "aws_security_group" "firco_sec" {
 
   ingress = {
     description = "allow HTTPS"
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
