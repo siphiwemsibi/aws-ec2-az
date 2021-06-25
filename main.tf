@@ -2,9 +2,11 @@
 
 terraform {
   backend "s3" {
-    bucket  = "firco-tfstate-bucket"
+    bucket  = "firco-tfstate-bucket-us"
+    #bucket  = "firco-tfstate-bucket"
     key     = "fircotf"
-    region  = "af-south-1"
+    region  = "us-east-1"
+    #region  = "af-south-1"
     encrypt = true
   }
 }
