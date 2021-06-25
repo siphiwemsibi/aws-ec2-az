@@ -18,7 +18,7 @@ steps:
     command: 'init'
     backendServiceAWS: 'firco-us'
     backendAWSBucketName: 'firco-tfstate-bucket-us'
-    backendAWSKey: 'fircotf'
+    backendAWSKey: 'fircotf.tfstate'
 
 # - task: TerraformTaskV2@2
 #   inputs:
