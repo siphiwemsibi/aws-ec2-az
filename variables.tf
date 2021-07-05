@@ -23,10 +23,14 @@ variable "sec_group" {
   default = "firco-sec"
 }
 
+variable "efs_firco_sg" {
+  default = "efs-firco-sec"
+}
+
 variable "vpc_id" {
   default = "vpc-04dee187fd5e82d8e"
 }
 
-variable "my_name" {
-  default = "Siphiwe"
+variable "alb_name" {
+  default = "firc-alb"
 }
