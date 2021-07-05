@@ -15,5 +15,4 @@ resource "aws_efs_mount_target" "my_efs_mount" {
 
 resource "aws_efs_access_point" "my_efs_access" {
   file_system_id = aws_efs_file_system.my_efs.id
-  id             = "firco-access"
 }
