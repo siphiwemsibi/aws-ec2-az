@@ -55,7 +55,7 @@ resource "aws_security_group" "firco_efs_sec" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "firco_efs_sec"
   }
 
