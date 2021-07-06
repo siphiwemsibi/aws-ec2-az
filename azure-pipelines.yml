@@ -26,9 +26,9 @@ steps:
     command: 'plan'
     environmentServiceNameAWS: 'firco-aws-tf'
 
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'aws'
-#     command: 'apply'
-#     environmentServiceNameAWS: 'firco-aws-tf'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    environmentServiceNameAWS: 'firco-aws-tf'
 
