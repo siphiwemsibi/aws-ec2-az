@@ -44,7 +44,7 @@ resource "aws_security_group" "firco_efs_sec" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = [var.subnet_ids]
+    cidr_blocks = [data.aws_subnet.subnet1.cidr_block, data.aws_subnet.subnet2.cidr_block]
   }
 
   egress {

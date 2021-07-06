@@ -11,6 +11,10 @@ variable "subnet_ids" {
   default = ["subnet-0a01cdf1a7fd22b20", "subnet-06319c1a473a03935"]
 }
 
+variable "subnets" {
+  default = ["data.aws_subnet.subnet1", "data.aws_subnet.subnet2"]
+}
+
 variable "instance_type" {
   default = "t3.2xlarge"
 }

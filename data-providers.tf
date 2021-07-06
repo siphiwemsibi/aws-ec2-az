@@ -21,3 +21,10 @@ data "aws_vpc" "firco_vpc" {
   id = var.vpc_id
 }
 
+data "aws_subnet" "subnet1" {
+  id = var.subnet_ids[0]
+}
+
+data "aws_subnet" "subnet2" {
+  id = var.subnet_ids[1]
+}

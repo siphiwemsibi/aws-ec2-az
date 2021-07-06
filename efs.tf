@@ -8,8 +8,12 @@ resource "aws_efs_file_system" "my_efs" {
 
 resource "aws_efs_mount_target" "my_efs_mount" {
   file_system_id  = aws_efs_file_system.my_efs.id
-  subnet_id       = var.subnet_ids
-  security_groups = ["${aws_security_group.firco_efs_sec}"]
+  #count           = length(var.subnet_ids.*.id)
+  count           = length(var.subnet_ids)
+  #count = 2
+  #subnet_id       = element(var.subnet_ids.*.id, count.index)
+  subnet_id = var.subnet_ids[count.index]
+  security_groups = [aws_security_group.firco_efs_sec.id]
 
 }
 
