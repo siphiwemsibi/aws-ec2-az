@@ -8,11 +8,11 @@ resource "aws_alb" "alb" {
 
   enable_deletion_protection = true
 
-  access_logs {
-    bucket  = "firco-tfstate-bucket-us"
-    prefix  = "firco-alb-http"
-    enabled = true
-  }
+#   access_logs {
+#     bucket  = "firco-tfstate-bucket-us"
+#     prefix  = "firco-alb-http"
+#     enabled = true
+#   }
 
   tags = {
     Name = var.alb_name
