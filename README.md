@@ -45,7 +45,7 @@ I have tried explaining some of the things withing the specific files
    - Terraform is used to plan & deploy the code whenever you commit code to the repo
 
 3. Variables
-Most important file, where you can specify your own environmental variables.
+   Most important file, where you can specify your own environmental variables.
    - Notably vpc_id, subnets, subnet_ids
 
 ## Gotcha:-
