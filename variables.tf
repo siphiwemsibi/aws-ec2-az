@@ -1,3 +1,4 @@
+#Everything can be left intact except for the vpc_id, subnets, subnet_ids
 variable "region" {
   default = "af-south-1"
 }
@@ -31,10 +32,14 @@ variable "efs_firco_sg" {
   default = "efs-firco-sec"
 }
 
+variable "alb_firco_sg" {
+  default = "alb-firco-sec"
+}
+
 variable "vpc_id" {
   default = "vpc-04dee187fd5e82d8e"
 }
 
 variable "alb_name" {
-  default = "firc-alb"
+  default = "firc-http-alb"
 }

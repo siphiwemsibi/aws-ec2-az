@@ -1,4 +1,4 @@
-# Using Azure DevOps and Terraform to deploy a high-available AWS EC2 instance 
+# Using Azure DevOps and Terraform to deploy a high-available AWS EC2 instance
 
 ## What?
 
@@ -6,80 +6,51 @@ This project will assist you to use Azure DevOps pipeline(YAML) and Terraform to
 
 ## Why?
 
-Most organisations still experience silo's when it comes to execution even from a cloud perspective. 
+Most organisations still experience silo's when it comes to execution even from a cloud perspective.
 You still have specialised teams within the cloud teams, E.G network, compute etc.
-The aim is to help application teams leverage existing resources(VPC and subnets) to deploy their application inrastructure via IaC and DevOps. 
+The aim is to help application teams leverage existing resources(VPC and subnets) to deploy their application infrastructure via IaC and DevOps.
 
 ## Which components are deployed:-
 
-	○ AWS EC2 instances in a AZ
-  - An EFS instance in a AZ
-  - A load balancer
-
+- AWS EC2 instances in a AZ
+- An EFS instance in a AZ
+- A load balancer
+- Security groups
+- EBS volumes
 
 ## Prerequisites:-
 
-	○ A running AWS EKS Cluster
-	○ AWS ECR(Elastic Container Registry)
-	○ AWS Kubernetes service connection
-	○ AWS Services Connection
-	○ An Azure DevOps account
-	○ AWS Toolkit for Azure DevOps
-	○ A Github account(or any Git based vcs)
-	○ An application to be dockerized and deployed(free to use my sample)
-
-
-## Repo structure:-
-
-	1. Source folder: contains my python sample app
-	2. Root folder:
-		○ Dockerfile: used to dockerize my python app
-		○ App-manifest: a yaml Kubernetes deployment type(pod), application manifest
-		○ Azure-pipelines: This is a multi-stage yaml which contains all the steps required for the pipeline
-		○ Requirements: These are the application requirements
-	
+- AWS Services Connection
+- AWS for Terraform Services Connection
+- A Github account(or any Git based vcs)
+- An Azure DevOps account
+- An existing S3 to store terraform code
+- An existing VPC and Subnets
+- Some understanding of Azure DevOps, AWS and terraform
 
 ## Usage:-
 
-You are free to clone the repo and retrofit to your requirements, or you can copy any component but there are modifications required on the Azure-pipeline.
+You are free to clone the repo and retrofit to your own requirements. Individual component code(E.G efs.tf) can be reused as modules.
+I have tried explaining some of the things withing the specific files
 
-1. AWS Kubernetes service connection
-   - https://www.efficientclouds.com/post/how-to-connect-azure-devops-to-eks
-2. AWS Services Connection
-   - Install AWS Toolkit for Azure DevOps https://aws.amazon.com/vsts/
+1. AWS & AWS for Terraform Services Connection
+   - Install AWS Toolkit for Azure DevOps <https://aws.amazon.com/vsts/>
    - Requires an AWS Access Key ID and Secret Access Keys
-   - https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml 
-	
-	
-3. Azure-pipeline
-   - Ensure your repo name presents your app(E.G aws-docker-eks1) - easier to reference during automation
+   - <https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml>
 
-   - Build Stage
-      - Authenticates to AWS ECR using my AWS service connection(AWS-Connection-1) 
-      - Builds and tags the docker image from the dockerfile 
-      - Pushes the image to AWS ECR
-      - Copies the App-manifest.yaml to the staging directory for Release
+2. Azure DevOps
+   - Represented by the azure-pipelines.yml
+   - Modify the environmentServiceNameAWS & backendServiceAWS to your own service connections  
+   - The pipeline must point to your own repo
+   - Terraform is used to plan & deploy the code whenever you commit code to the repo
 
-   - Deploy Stage
-     - Downloads the App-manifest.yaml for deployment
-     - Authenticates and deploys the YAML file to the AWS EKS cluster
+3. Variables
+Most important file, where you can specify your own environmental variables.
+   - Notably vpc_id, subnets, subnet_ids
 
-## Things to note on the Pipeline and App-manifest
+## Gotcha:-
 
-   - I am using the Azure DevOps Predefined variables[$(Build.BuildNumber), $(Build.Repository.Name)] for automation purposes(Image tagging on the YAML deployment & ECR repo) 
-   - I am using self-defined variables[$(AWS_REGION), $(ECR_ID)] for automation purposes. 
-   - I have also enabled Approvals for EKS deployment(continuous delivery)  
+At the time of this writing(07-07-2021)
 
-
-## Ok, so how do you use this for testing without changing a lot??
-
-   - Meet the prerequisites 
-   - Change the self-defined variables
-   - Change the (kubectl set) "arguments" line 104 on the Azure-pipeline file , to your own ECR repo mage
-   - Change the "image" ref line 18 on the app-manifest, to your own ECR repo image
-
-   ECR image repo = $(ECR_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/**siphiwemsibiaws-docker-eks1**:$(Build.BuildNumber) replace with your ECR repo 
-    
-
-
-This is the 1st MVP, proper blog to come soon if the need arises. 
+- Struggled with the "AWS Services Connection" as I was trying to create my terraform state file in South Africa(af-south-1) region. This gave me errors.
+- I only succeeded by using the us-east-1 region for storing the tf state file.

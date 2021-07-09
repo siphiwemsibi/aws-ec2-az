@@ -1,5 +1,5 @@
 
-
+#terraform state which will be stored in a S3 bucket
 terraform {
   backend "s3" {
     bucket = "firco-tfstate-bucket-us"
@@ -11,6 +11,7 @@ terraform {
   }
 }
 
+#EBS volumes to be used and attached as extra Data disks on the EC2 instances
 resource "aws_ebs_volume" "ebs_vol" {
   count             = "2"
   availability_zone = element(aws_instance.firco_ec2.*.availability_zone, count.index)
@@ -28,6 +29,7 @@ resource "aws_volume_attachment" "ebsvol_attach" {
   instance_id = element(aws_instance.firco_ec2.*.id, count.index)
 }
 
+#Provision the EC2 instances in the AZ
 resource "aws_instance" "firco_ec2" {
   ami                    = data.aws_ami.rhel8_latest.id
   instance_type          = var.instance_type
