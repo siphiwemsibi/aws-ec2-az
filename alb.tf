@@ -1,4 +1,5 @@
-
+#Creates an internal HTTP ALB and binds the EC2 instances.
+#HTTPS listener can be added, the cert can reside on ACM and be referenced via ARN
 resource "aws_alb" "alb" {
   name               = var.alb_name
   internal           = true
