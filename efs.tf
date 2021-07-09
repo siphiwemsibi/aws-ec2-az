@@ -1,6 +1,7 @@
 #Create an EFS in a AZ and mount points
 resource "aws_efs_file_system" "my_efs" {
   creation_token = "firco-efs1"
+  encrypted = true
 
   tags = {
     "Name" = "firco-efs1"
