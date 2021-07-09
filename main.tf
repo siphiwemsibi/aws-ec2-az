@@ -13,7 +13,7 @@ terraform {
 
 #EBS volumes to be used and attached as extra Data disks on the EC2 instances
 resource "aws_ebs_volume" "ebs_vol" {
-  count             = "2"
+  count             = var.servercount
   availability_zone = element(aws_instance.firco_ec2.*.availability_zone, count.index)
   size              = 250
 
@@ -23,7 +23,7 @@ resource "aws_ebs_volume" "ebs_vol" {
 }
 
 resource "aws_volume_attachment" "ebsvol_attach" {
-  count       = 2
+  count       = var.servercount
   device_name = "/dev/sdb"
   volume_id   = aws_ebs_volume.ebs_vol.*.id[count.index]
   instance_id = element(aws_instance.firco_ec2.*.id, count.index)
@@ -33,7 +33,7 @@ resource "aws_volume_attachment" "ebsvol_attach" {
 resource "aws_instance" "firco_ec2" {
   ami                    = data.aws_ami.rhel8_latest.id
   instance_type          = var.instance_type
-  count                  = "2"
+  count                  = var.servercount
   vpc_security_group_ids = [aws_security_group.firco_sec.id]
   subnet_id              = element(var.subnet_ids, count.index)
   key_name               = var.key_name

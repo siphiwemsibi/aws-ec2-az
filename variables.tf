@@ -43,3 +43,7 @@ variable "vpc_id" {
 variable "alb_name" {
   default = "firc-http-alb"
 }
+
+variable "servercount" {
+  default = "4"
+}
